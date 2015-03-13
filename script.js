@@ -45,6 +45,12 @@ function drawChart() {
 			dateAndValueArray.push(worldAverageIMR);
 			dateAndValueArray.push(lineColor);
 			
+			if(rawDataIMR.observations[i].DATE == "2013-01-01"){
+				dateAndValueArray.push("Mali's infant mortality rate is more than double the world average.");
+			}else{
+				dateAndValueArray.push("");
+			} 
+			
 			//Pushing the 'medium' sized array, dataAndValueArray, into the 'big' array, IMRArray.
 			IMRArray.push(dateAndValueArray); 
 			
@@ -54,9 +60,10 @@ function drawChart() {
       var IMRData = new google.visualization.DataTable();
       IMRData.addColumn('date', 'Year');
       IMRData.addColumn('number', 'Infant mortality rate');
-      IMRData.addColumn({ type:'string', role: 'style' });
+      IMRData.addColumn({type:'string', role:'style'});
       IMRData.addColumn('number', 'Global average in 2013');
       IMRData.addColumn({ type:'string', role: 'style' });
+      IMRData.addColumn({type:'string', role:'annotation'});
       IMRData.addRows(IMRArray);
       
       // Formatting the date type.
@@ -68,9 +75,6 @@ function drawChart() {
       				   title:'Infant Morality Rate in Mali Has Fallen, But Remains High',
                        width: 1200,
                        height: 900,
-                       //bar: { 
-                       		//groupWidth: '61.8%' 
-                       //},
                        vAxis: {
                        		title: 'Deaths per 1,000 live births',
                        		minValue: 0,
@@ -83,7 +87,10 @@ function drawChart() {
                        		textStyle: {}
                        },
                        seriesType: "bars",
-                       series: {1: {type: "line"}}
+                       series: {
+                       		1: {type: "line"}
+                       },
+                       colors: ['red', 'black']
                       }; //End of option
 
 		IMRSpecs.vAxis.gridlines = vAxisGridLineStyle;
